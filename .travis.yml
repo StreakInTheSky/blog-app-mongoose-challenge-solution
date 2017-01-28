@@ -1,4 +1,11 @@
 language: node_js
 node_js: node
 services:
-  - mongodb
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: obQYtNE2XxPcRKdW5VSJNR8RrqffIthG3gbz1mH1dtnjul1t4cmlfZxE/8aHWr1mxR4ZZth0p1zyFnYWHfdFDz4sB1U88a82hP3AJL0nILdEX84vDV17sxgEXr7vKM0o9xwaslxO0WUIkQVPo/nGAlq72uYosPUYfmqNtaJpLlGCb4NeI+0+cU/2Gg9jhwWKwdX10T45WpfAGE0bFv3xE7IrYfn4ZLrgTMlPPtpHqDDREKdCNkaqJ+MaCD4WqY1yF+sk9BiHTYcbjOBS8qp0mpBQOXZHStkVX2rtMDx/FEuMp2xlgqSYEBT8IQlT789vGGpKVzsH/48BXCdjuj45AnvUuGx99lmAgUAld745oIXbRjvIGUqJnYBgTi9OmzDlf6SGkivHAj+j8Yy3/TNpdOs1cJi1RZdDJUkT8TLq9U4sYOxBxqW0nBMLLXyzkBy6kWy4CK78z1r/J5T5Luj5fZl8Og4atSkPo9QNt4QmLghmpOdQulL+DMM/EEsGaZu61083CzflAAXwSvtVghVKh5upWEymyOFL7mEjicjY7b2RVe1FW1YzyYnjx1ls8jSL0wYfeJ2wBX+Z1sP2/ECewiGY+PV3IMX+lYmPb+gQw/TnRna33HREX2m33djLCuGFgh+ewhx8iizy2j10GIZvsqBZXujNuZLjy19cNeCXy/4=
+  app: mysterious-escarpment-28143
+  on:
+    repo: StreakInTheSky/blog-app-mongoose-challenge-solution
