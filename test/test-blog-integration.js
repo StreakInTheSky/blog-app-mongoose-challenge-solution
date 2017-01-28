@@ -29,30 +29,7 @@ function seedPostData() {
   return BlogPost.insertMany(seedData);
 }
 
-// // used to generate data to put in db
-// function generateBoroughName() {
-//   const boroughs = [
-//     'Manhattan', 'Queens', 'Brooklyn', 'Bronx', 'Staten Island'];
-//   return boroughs[Math.floor(Math.random() * boroughs.length)];
-// }
-
-// // used to generate data to put in db
-// function generateCuisineType() {
-//   const cuisines = ['Italian', 'Thai', 'Colombian'];
-//   return cuisines[Math.floor(Math.random() * cuisines.length)];
-// }
-
-// // used to generate data to put in db
-// function generateGrade() {
-//   const grades = ['A', 'B', 'C', 'D', 'F'];
-//   const grade = grades[Math.floor(Math.random() * grades.length)];
-//   return {
-//     date: faker.date.past(),
-//     grade: grade
-//   }
-// }
-
-// generate an object represnting a restaurant.
+// generate an object represnting a post.
 // can be used to generate seed data for db
 // or request.body data
 function generatePostData() {
@@ -69,7 +46,7 @@ function generatePostData() {
 
 // this function deletes the entire database.
 // we'll call it in an `afterEach` block below
-// to ensure  ata from one test does not stick
+// to ensure data from one test does not stick
 // around for next one
 function tearDownDb() {
     console.warn('Deleting database');
@@ -101,7 +78,7 @@ describe('Blog API resource', function() {
   // note the use of nested `describe` blocks.
   // this allows us to make clearer, more discrete tests that focus
   // on proving something small
-  // describe('GET endpoint', function() {
+  describe('GET endpoint', function() {
 
     it('should return all existing posts', function() {
       // strategy:
@@ -151,14 +128,13 @@ describe('Blog API resource', function() {
           return BlogPost.findById(resPost.id);
         })
         .then(function(post) {
-
           resPost.id.should.equal(post.id);
           resPost.title.should.equal(post.title);
           resPost.content.should.equal(post.content);
           resPost.author.should.equal(`${post.author.firstName} ${post.author.lastName}`.trim());
         });
     });
-  // });
+  });
 
   // describe('POST endpoint', function() {
   //   // strategy: make a POST request with data,
@@ -205,6 +181,10 @@ describe('Blog API resource', function() {
   // });
 
   describe('POST endpoint', function() {
+    // strategy: make a POST request with data,
+    // then prove that the restaurant we get back has
+    // right keys, and that `id` is there (which means
+    // the data was inserted into db)
     it('should add a new post', function() {
       const newPost = generatePostData();
 
@@ -220,10 +200,17 @@ describe('Blog API resource', function() {
           res.body.title.should.equal(newPost.title);
           res.body.id.should.not.be.null;
           res.body.content.should.equal(newPost.content);
-          res.body.author.should.equal(`${newPost.author.firstName} ${newPost.author.lastName}`.trim())
+          res.body.author.should.equal(`${newPost.author.firstName} ${newPost.author.lastName}`.trim());
+          return BlogPost.findById(res.body.id);
         })
-    })
-  })
+        .then(function(post) {
+          post.title.should.equal(newPost.title);
+          post.content.should.equal(newPost.content);
+          post.author.firstName.should.equal(newPost.author.firstName);
+          post.author.lastName.should.equal(newPost.author.lastName);
+        })
+    });
+  });
 
   // describe('PUT endpoint', function() {
 
