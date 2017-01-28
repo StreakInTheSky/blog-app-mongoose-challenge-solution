@@ -182,7 +182,7 @@ describe('Blog API resource', function() {
 
   describe('POST endpoint', function() {
     // strategy: make a POST request with data,
-    // then prove that the restaurant we get back has
+    // then prove that the post we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
     it('should add a new post', function() {
@@ -208,7 +208,7 @@ describe('Blog API resource', function() {
           post.content.should.equal(newPost.content);
           post.author.firstName.should.equal(newPost.author.firstName);
           post.author.lastName.should.equal(newPost.author.lastName);
-        })
+        });
     });
   });
 
@@ -248,6 +248,41 @@ describe('Blog API resource', function() {
   //       });
   //     });
   // });
+
+  describe('PUT endpoint', function() {
+    // strategy:
+    //  1. Get an existing post from db
+    //  2. Make a PUT request to update that post
+    //  3. Prove post returned by request contains data we sent
+    //  4. Prove post in db is correctly updated
+    it('should update fields fields you send over', function() {
+      const updateData = {
+        title: 'Birch belch butcher',
+        content: 'a whole lotta nothin\''
+      };
+
+      return BlogPost
+        .findOne()
+        .exec()
+        .then(function(post) {
+          updateData.id = post.id;
+
+          // make request then inspect it to make sure it reflects
+          // data we sent
+          return chai.request(app)
+            .put(`/posts/${post.id}`)
+            .send(updateData);
+        })
+        .then(function(res) {
+          res.should.have.status(201);
+          return BlogPost.findById(updateData.id).exec();
+        })
+        .then(function(post) {
+          post.title.should.equal(updateData.title);
+          post.content.should.equal(updateData.content);
+        });
+    });
+  });
 
   // describe('DELETE endpoint', function() {
   //   // strategy:
