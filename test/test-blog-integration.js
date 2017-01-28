@@ -136,50 +136,6 @@ describe('Blog API resource', function() {
     });
   });
 
-  // describe('POST endpoint', function() {
-  //   // strategy: make a POST request with data,
-  //   // then prove that the restaurant we get back has
-  //   // right keys, and that `id` is there (which means
-  //   // the data was inserted into db)
-  //   it('should add a new restaurant', function() {
-
-  //     const newRestaurant = generateRestaurantData();
-  //     let mostRecentGrade;
-
-  //     return chai.request(app)
-  //       .post('/restaurants')
-  //       .send(newRestaurant)
-  //       .then(function(res) {
-  //         res.should.have.status(201);
-  //         res.should.be.json;
-  //         res.body.should.be.a('object');
-  //         res.body.should.include.keys(
-  //           'id', 'name', 'cuisine', 'borough', 'grade', 'address');
-  //         res.body.name.should.equal(newRestaurant.name);
-  //         // cause Mongo should have created id on insertion
-  //         res.body.id.should.not.be.null;
-  //         res.body.cuisine.should.equal(newRestaurant.cuisine);
-  //         res.body.borough.should.equal(newRestaurant.borough);
-
-  //         mostRecentGrade = newRestaurant.grades.sort(
-  //           (a, b) => b.date - a.date)[0].grade;
-
-  //         res.body.grade.should.equal(mostRecentGrade);
-  //         return Restaurant.findById(res.body.id);
-  //       })
-  //       .then(function(restaurant) {
-  //         restaurant.name.should.equal(newRestaurant.name);
-  //         restaurant.cuisine.should.equal(newRestaurant.cuisine);
-  //         restaurant.borough.should.equal(newRestaurant.borough);
-  //         restaurant.name.should.equal(newRestaurant.name);
-  //         restaurant.grade.should.equal(mostRecentGrade);
-  //         restaurant.address.building.should.equal(newRestaurant.address.building);
-  //         restaurant.address.street.should.equal(newRestaurant.address.street);
-  //         restaurant.address.zipcode.should.equal(newRestaurant.address.zipcode);
-  //       });
-  //   });
-  // });
-
   describe('POST endpoint', function() {
     // strategy: make a POST request with data,
     // then prove that the post we get back has
@@ -211,43 +167,6 @@ describe('Blog API resource', function() {
         });
     });
   });
-
-  // describe('PUT endpoint', function() {
-
-  //   // strategy:
-  //   //  1. Get an existing restaurant from db
-  //   //  2. Make a PUT request to update that restaurant
-  //   //  3. Prove restaurant returned by request contains data we sent
-  //   //  4. Prove restaurant in db is correctly updated
-  //   it('should update fields you send over', function() {
-  //     const updateData = {
-  //       name: 'fofofofofofofof',
-  //       cuisine: 'futuristic fusion'
-  //     };
-
-  //     return Restaurant
-  //       .findOne()
-  //       .exec()
-  //       .then(function(restaurant) {
-  //         updateData.id = restaurant.id;
-
-  //         // make request then inspect it to make sure it reflects
-  //         // data we sent
-  //         return chai.request(app)
-  //           .put(`/restaurants/${restaurant.id}`)
-  //           .send(updateData);
-  //       })
-  //       .then(function(res) {
-  //         res.should.have.status(204);
-
-  //         return Restaurant.findById(updateData.id).exec();
-  //       })
-  //       .then(function(restaurant) {
-  //         restaurant.name.should.equal(updateData.name);
-  //         restaurant.cuisine.should.equal(updateData.cuisine);
-  //       });
-  //     });
-  // });
 
   describe('PUT endpoint', function() {
     // strategy:
@@ -284,36 +203,6 @@ describe('Blog API resource', function() {
     });
   });
 
-  // describe('DELETE endpoint', function() {
-  //   // strategy:
-  //   //  1. get a restaurant
-  //   //  2. make a DELETE request for that restaurant's id
-  //   //  3. assert that response has right status code
-  //   //  4. prove that restaurant with the id doesn't exist in db anymore
-  //   it('delete a restaurant by id', function() {
-
-  //     let restaurant;
-
-  //     return Restaurant
-  //       .findOne()
-  //       .exec()
-  //       .then(function(_restaurant) {
-  //         restaurant = _restaurant;
-  //         return chai.request(app).delete(`/restaurants/${restaurant.id}`);
-  //       })
-  //       .then(function(res) {
-  //         res.should.have.status(204);
-  //         return Restaurant.findById(restaurant.id).exec();
-  //       })
-  //       .then(function(_restaurant) {
-  //         // when a variable's value is null, chaining `should`
-  //         // doesn't work. so `_restaurant.should.be.null` would raise
-  //         // an error. `should.be.null(_restaurant)` is how we can
-  //         // make assertions about a null value.
-  //         should.not.exist(_restaurant);
-  //       });
-  //   });
-  // });
 
   describe('DELETE endpoint', function() {
     // strategy:
