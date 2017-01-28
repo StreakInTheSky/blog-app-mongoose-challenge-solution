@@ -314,4 +314,30 @@ describe('Blog API resource', function() {
   //       });
   //   });
   // });
+
+  describe('DELETE endpoint', function() {
+    // strategy:
+    //  1. get a restaurant
+    //  2. make a DELETE request for that restaurant's id
+    //  3. assert that response has right status code
+    //  4. prove that restaurant with the id doesn't exist in db anymore
+    it('deletes a post by id', function(){
+      let post;
+
+      return BlogPost
+        .findOne()
+        .exec()
+        .then(function(_post) {
+          post = _post;
+          return chai.request(app).delete(`/posts/${post.id}`)
+        })
+        .then(function(res) {
+          res.should.have.status(204);
+          return BlogPost.findById(post.id).exec();
+        })
+        .then(function(_post) {
+          should.not.exist(_post);
+        });
+    });
+  });
 });
